@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio Mohamed Saidi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* Layout idea: a component datasheet. Header strip, numbered sections, each project laid out like a part's spec sheet with a block diagram. */
+:root {
+  --paper: #f4f6f6;
+  --panel: #ffffff;
+  --ink: #15191c;
+  --muted: #5a6267;
+  --line: #d3d9dc;
+  --accent: #b3121f;
+  --accent-soft: #f6e4e5;
+  --display: "Archivo", "Arial Narrow", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #101315; --panel: #181c1f; --ink: #e6e9ea; --muted: #9aa3a8;
+    --line: #2b3236; --accent: #ec4a52; --accent-soft: #3a1c1f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #101315; --panel: #181c1f; --ink: #e6e9ea; --muted: #9aa3a8;
+  --line: #2b3236; --accent: #ec4a52; --accent-soft: #3a1c1f; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+@media (max-width: 480px) { .wrap { padding: 0 16px; } }
+
+/* datasheet strip */
+.strip { border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 12px; letter-spacing: .04em; color: var(--muted); text-transform: uppercase; }
+.strip .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 24px; padding-top: 10px; padding-bottom: 10px; }
+.strip b { color: var(--ink); font-weight: 500; }
+
+/* hero */
+.hero { padding: 48px 0 40px; border-bottom: 2px solid var(--ink); }
+.hero .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; }
+.hero h1 { font-family: var(--display); font-stretch: 125%; font-weight: 800; font-size: clamp(40px, 7vw, 76px); line-height: .95; letter-spacing: -.01em; margin: 0; text-transform: uppercase; text-wrap: balance; }
+.hero h1 span { display: block; color: var(--accent); }
+.role { font-family: var(--display); font-stretch: 75%; font-weight: 600; font-size: clamp(20px, 2.6vw, 26px); margin: 14px 0 0; text-transform: uppercase; letter-spacing: .04em; }
+.pitch { max-width: 60ch; color: var(--muted); margin: 12px 0 0; font-size: 17px; }
+.status { display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; padding: 8px 14px; border: 1.5px solid var(--accent); background: var(--accent-soft); font-family: var(--mono); font-size: 13px; }
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.btn { display: inline-block; padding: 10px 18px; font-family: var(--mono); font-size: 13px; font-weight: 500; text-decoration: none; border: 1.5px solid var(--ink); color: var(--ink); background: var(--panel); text-transform: uppercase; letter-spacing: .04em; }
+.btn.primary { background: var(--ink); color: var(--paper); }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.photo { width: 168px; height: 168px; border: 1.5px solid var(--ink); padding: 6px; background: var(--panel); }
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(.15); }
+@media (max-width: 640px) {
+  .hero .wrap { grid-template-columns: 1fr; }
+  .photo { order: -1; width: 112px; height: 112px; }
+}
+
+/* sections */
+section { padding: 44px 0 8px; }
+.sec-head { display: flex; align-items: baseline; gap: 14px; border-bottom: 1px solid var(--line); padding-bottom: 8px; margin-bottom: 24px; }
+.sec-head .no { font-family: var(--mono); font-size: 13px; color: var(--accent); }
+.sec-head h2 { font-family: var(--display); font-stretch: 100%; font-weight: 700; font-size: 26px; margin: 0; text-transform: uppercase; letter-spacing: .02em; }
+
+/* projects */
+.projects { display: grid; gap: 22px; }
+.proj { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--ink); display: grid; grid-template-columns: 1.25fr 1fr; }
+.proj:hover { border-left-color: var(--accent); }
+.proj .main { padding: 22px 24px; }
+.proj .spec { padding: 22px 24px; border-left: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 55%, var(--panel)); }
+@media (max-width: 760px) { .proj { grid-template-columns: 1fr; } .proj .spec { border-left: 0; border-top: 1px solid var(--line); } }
+.ref { font-family: var(--mono); font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 14px; text-transform: uppercase; letter-spacing: .04em; }
+.ref b { color: var(--accent); font-weight: 500; }
+.proj h3 { font-family: var(--display); font-stretch: 90%; font-weight: 700; font-size: 22px; line-height: 1.15; margin: 8px 0 4px; text-wrap: balance; }
+.proj .where { color: var(--muted); font-size: 14px; margin: 0 0 12px; }
+.proj ul { margin: 0; padding-left: 18px; }
+.proj li { margin: 4px 0; }
+.note { margin-top: 12px; font-size: 13px; color: var(--muted); font-style: italic; }
+
+.label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 8px; }
+.flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 0; margin-bottom: 18px; }
+.node { font-family: var(--mono); font-size: 12px; padding: 6px 9px; border: 1.5px solid var(--ink); background: var(--panel); white-space: nowrap; }
+.node.core { border-color: var(--accent); color: var(--accent); font-weight: 500; }
+.seg { display: inline-flex; align-items: center; }
+.wire { width: 22px; height: 1.5px; background: var(--ink); position: relative; flex: none; }
+.wire::after { content: ""; position: absolute; right: -1px; top: -3.5px; border-left: 6px solid var(--ink); border-top: 4px solid transparent; border-bottom: 4px solid transparent; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; vertical-align: top; padding: 6px 0; border-top: 1px solid var(--line); }
+th { font-family: var(--mono); font-weight: 400; font-size: 12px; color: var(--muted); width: 38%; padding-right: 10px; text-transform: uppercase; letter-spacing: .03em; }
+
+/* skills */
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+.skill { background: var(--panel); border: 1px solid var(--line); padding: 16px 18px; }
+.skill h3 { font-family: var(--mono); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; color: var(--accent); margin: 0 0 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 13px; padding: 3px 9px; border: 1px solid var(--line); background: var(--paper); }
+
+/* timeline */
+.timeline { display: grid; gap: 0; }
+.tl { display: grid; grid-template-columns: 140px 1fr; gap: 20px; padding: 14px 0; border-top: 1px solid var(--line); }
+.tl:last-child { border-bottom: 1px solid var(--line); }
+.tl .when { font-family: var(--mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tl h3 { font-size: 17px; margin: 0; font-weight: 600; }
+.tl p { margin: 2px 0 0; color: var(--muted); font-size: 15px; }
+@media (max-width: 520px) { .tl { grid-template-columns: 1fr; gap: 2px; } }
+
+.langs { display: flex; flex-wrap: wrap; gap: 12px 32px; }
+.langs div b { display: block; font-family: var(--display); font-stretch: 90%; font-size: 20px; }
+.langs div span { color: var(--muted); font-size: 14px; }
+
+/* contact */
+.contact { margin: 48px 0 0; background: var(--ink); color: var(--paper); padding: 40px 0; }
+.contact h2 { font-family: var(--display); font-stretch: 125%; font-weight: 800; font-size: clamp(26px, 4vw, 38px); margin: 0 0 6px; text-transform: uppercase; }
+.contact p { margin: 0 0 22px; opacity: .8; max-width: 60ch; }
+.cgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.cgrid div { border-top: 1px solid color-mix(in srgb, var(--paper) 30%, transparent); padding-top: 10px; }
+.cgrid small { display: block; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; opacity: .65; }
+.cgrid a, .cgrid span { color: var(--paper); font-size: 16px; word-break: break-word; }
+footer { padding: 18px 0 28px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* additions: project head row, galleries, lightbox, extras */
+.proj { grid-template-columns: 1.25fr 1fr; }
+.proj .gallery { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 18px 24px 22px; }
+.gal { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.gal figure { margin: 0; }
+.gal.wide { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+.gal.wide img { height: 200px; object-fit: contain; background: #fff; }
+.gal button { display: block; width: 100%; padding: 0; border: 1px solid var(--line); background: var(--paper); cursor: zoom-in; }
+.gal button:hover { border-color: var(--accent); }
+.gal button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.gal img { display: block; width: 100%; height: 140px; object-fit: cover; }
+.gal figcaption { font-size: 12.5px; color: var(--muted); margin-top: 5px; line-height: 1.35; }
+.lead { margin: 0 0 12px; font-size: 15px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 16px; }
+.kpis div { border: 1px solid var(--line); border-top: 3px solid var(--accent); padding: 10px 12px; background: var(--paper); }
+.kpis b { display: block; font-family: var(--display); font-stretch: 90%; font-size: 22px; color: var(--accent); font-variant-numeric: tabular-nums; }
+.kpis span { font-size: 13px; color: var(--muted); line-height: 1.35; display: block; }
+.badge { display: inline-block; font-family: var(--mono); font-size: 11.5px; padding: 2px 8px; border: 1px solid var(--accent); color: var(--accent); margin-left: 8px; vertical-align: middle; text-transform: none; letter-spacing: 0; }
+.about { display: grid; grid-template-columns: 1fr 260px; gap: 28px; align-items: start; }
+.about p { margin: 0 0 12px; max-width: 64ch; }
+.about figure { margin: 0; border: 1.5px solid var(--ink); padding: 6px; background: var(--panel); }
+.about figure img { width: 100%; display: block; }
+.about figcaption { font-size: 12.5px; color: var(--muted); padding-top: 6px; }
+@media (max-width: 700px) { .about { grid-template-columns: 1fr; } .about figure { max-width: 260px; } }
+.axes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 8px; }
+.axes div { border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; }
+.axes b { display: block; font-size: 14px; }
+.axes span { font-size: 13.5px; color: var(--muted); }
+.ws { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+.wcard { background: var(--panel); border: 1px solid var(--line); }
+.wcard img { width: 100%; height: 190px; object-fit: cover; display: block; border-bottom: 1px solid var(--line); cursor: zoom-in; }
+.wcard .in { padding: 16px 18px; }
+.wcard h3 { font-family: var(--display); font-stretch: 90%; font-size: 19px; margin: 6px 0 6px; }
+.wcard p { margin: 0; font-size: 14.5px; color: var(--muted); }
+.certs { display: grid; gap: 0; }
+.cert { display: grid; grid-template-columns: 140px 1fr; gap: 20px; padding: 12px 0; border-top: 1px solid var(--line); }
+.cert:last-child { border-bottom: 1px solid var(--line); }
+.cert .when { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+@media (max-width: 520px) { .cert { grid-template-columns: 1fr; gap: 2px; } }
+dialog.lb { border: 0; padding: 0; background: transparent; max-width: min(94vw, 1100px); }
+dialog.lb::backdrop { background: rgba(10, 12, 14, .85); }
+dialog.lb img { max-width: 100%; max-height: 82vh; display: block; margin: 0 auto; background: #fff; }
+dialog.lb p { color: #f2f2f2; font-size: 14px; text-align: center; margin: 10px 0 0; }
+dialog.lb button { position: absolute; top: 6px; right: 6px; font-family: var(--mono); background: #fff; color: #111; border: 0; padding: 6px 10px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+
+<!-- ================= EN-TÊTE (bandeau du haut) ================= -->
+<div class="strip"><div class="wrap">
+  <span><b>Portfolio</b> · Systèmes embarqués &amp; électronique</span>
+  <span>Rév. novembre 2026</span>
+</div></div>
+
+
+<!-- ================= HAUT DE PAGE : nom, titre, phrase de présentation, statut, photo ================= -->
+<header class="hero"><div class="wrap">
+  <div>
+    <h1>Mohamed <span>Saidi</span></h1>
+    <p class="role">Ingénieur systèmes embarqués</p>
+    <p class="pitch">Je conçois des systèmes embarqués de bout en bout : schéma et PCB, firmware C/C++ sur microcontrôleur, intégration de capteurs et d'actionneurs, communication sans fil LoRaWAN à basse consommation.</p>
+    <div class="status">Recherche un stage de fin d'études de 6 mois · dès mars 2027</div>
+    <div class="actions">
+      <a class="btn primary" href="CV_Mohamed_Saidi.pdf" target="_blank" rel="noopener">Voir mon CV (PDF)</a>
+      <a class="btn" href="#projets">Voir mes projets</a>
+      <a class="btn" href="#contact">Me contacter</a>
+    </div>
+  </div>
+  <div class="photo"><img src="images/photo.jpg" alt="Photo de Mohamed Saidi"></div>
+</div></header>
+
+<main class="wrap">
+
+
+<!-- ================= SECTION 01 : PROFIL ================= -->
+<section id="profil">
+  <div class="sec-head"><span class="no">01</span><h2>Profil</h2></div>
+  <div class="about">
+    <div>
+      <p>Ingénieur de l'École Nationale d'Ingénieurs de Sfax (ENIS), spécialité Électronique et Instrumentation Embarquée, je poursuis un Master 2 EEA à l'Université Gustave Eiffel en double diplôme. Je suis passionné par la robotique, l'IoT et l'intelligence artificielle embarquée.</p>
+      <p>J'aime mener un projet sur toute la chaîne : choisir les composants, dessiner le schéma et le PCB, souder et câbler, programmer le microcontrôleur, puis tester et valider sur le vrai matériel.</p>
+      <div class="axes">
+        <div><b>Fondamentaux</b><span>Électronique analogique et numérique, composants, lois électriques</span></div>
+        <div><b>Systèmes embarqués</b><span>Microcontrôleurs, programmation C/C++/Python, capteurs et actionneurs</span></div>
+        <div><b>Conception et simulation</b><span>PCB, simulation de circuits, modélisation MATLAB/Simulink</span></div>
+      </div>
+    </div>
+    <figure><img src="images/event.jpg" alt="Mohamed Saidi lors d'un événement de robotique" loading="lazy"><figcaption>Lors d'un événement de robotique</figcaption></figure>
+  </div>
+</section>
+
+
+<!-- ================= SECTION 02 : PROJETS (chaque projet = un bloc <article> … </article>) ================= -->
+<section id="projets">
+  <div class="sec-head"><span class="no">02</span><h2>Projets</h2></div>
+  <div class="projects">
+
+    <!-- ----- PROJET : Système autonome LoRa/LoRaWAN de mesure de la qualité de l'air ----- (pour ajouter un projet, copie tout ce bloc jusqu'à </article>) -->
+    <article class="proj">
+      <div class="main">
+        <div class="ref"><b>PRJ-01</b><span>Stage de fin d'études ingénieur · 5 mois</span><span>LoRaWAN · Capteurs</span></div>
+        <h3>Système autonome LoRa/LoRaWAN de mesure de la qualité de l'air</h3>
+        <p class="where">Laboratoire Ampère (CNRS, Centrale Lyon, INSA Lyon, UCBL), Lyon · projet MOPIMS</p>
+        <p class="lead">Le projet MOPIMS est né après l'enquête PFAS d'Oullins-Pierre-Bénite (2022) pour surveiller la qualité de l'air en temps réel. Les versions précédentes du capteur utilisaient le Wi-Fi : portée de moins de 100 m, forte consommation, dépendance à la box d'un riverain et moins de 9 jours d'autonomie. J'ai fait migrer le système vers LoRa/LoRaWAN.</p>
+        <ul>
+          <li><b>Matériel :</b> choix des composants, schéma et routage d'un nouveau PCB double face, puis fabrication en salle blanche (insolation, gravure, perçage, soudure).</li>
+          <li><b>Énergie :</b> 2 accumulateurs Li-ion 18650 avec BMS, régulateur buck-boost TPS63000 (3,3 V) et coupure des capteurs par MOSFET AO3401A entre deux mesures.</li>
+          <li><b>Firmware :</b> réveil, préchauffage, 10 mesures moyennées, envoi LoRa puis veille profonde. Trame binaire de 8 octets (4 gaz × 2 octets) pour réduire le temps d'émission.</li>
+          <li><b>Passerelle :</b> mise en service d'un Raspberry Pi 4B avec concentrateur PG1302 vers The Things Network, et décodeur des trames en Python.</li>
+          <li><b>Mesures :</b> consommation mesurée au SMU Keithley 2410, préchauffage décalé des capteurs, essai sur le terrain du 11 au 16 septembre 2026.</li>
+        </ul>
+        <div class="kpis">
+          <div><b>×2</b><span>autonomie théorique : de 8,6 à 17,6 jours</span></div>
+          <div><b>Plusieurs km</b><span>de portée, contre moins de 100 m en Wi-Fi</span></div>
+          <div><b>8 octets</b><span>par mesure des 4 gaz (H2S, SO2, NH3, NO2)</span></div>
+        </div>
+        <p class="note">Bilan : indépendance réseau atteinte et transmission validée sur le terrain. L'objectif d'un mois d'autonomie n'est pas encore atteint : l'ajout de panneaux solaires est la prochaine étape proposée.</p>
+      </div>
+      <div class="spec">
+        <p class="label">Schéma de principe</p>
+        <div class="flow"><span class="node">4 capteurs de gaz (I2C)</span><span class="seg"><span class="wire"></span><span class="node core">Heltec LoRa 32 V3</span></span><span class="seg"><span class="wire"></span><span class="node">LoRa 868 MHz</span></span><span class="seg"><span class="wire"></span><span class="node">RPi 4B + PG1302</span></span><span class="seg"><span class="wire"></span><span class="node">TTN</span></span></div>
+        <table>
+          <tr><th>Nœud capteur</th><td>Heltec WiFi LoRa 32 (V3.2), capteurs Gravity H2S, SO2, NH3, NO2</td></tr>
+          <tr><th>Alimentation</th><td>2 × Li-ion 18650 (7000 mAh), BMS, buck-boost TPS63000</td></tr>
+          <tr><th>Passerelle</th><td>Raspberry Pi 4B, HAT PG1302, The Things Network</td></tr>
+          <tr><th>Firmware</th><td>C/C++, VS Code + PlatformIO, veille profonde</td></tr>
+          <tr><th>Mesure</th><td>SMU Keithley 2410</td></tr>
+          <tr><th>Outils</th><td>KiCad, LTspice, Python</td></tr>
+        </table>
+      </div>
+      <div class="gallery"><div class="gal">
+        <figure><button type="button" data-full="images/amp-systeme.jpg" data-cap="Système final : passerelle (à gauche) et nœud capteur (à droite) dans leurs boîtiers"><img src="images/amp-systeme.jpg" alt="Passerelle et nœud capteur en boîtiers" loading="lazy"></button><figcaption>Système final : passerelle et nœud capteur</figcaption></figure>
+        <figure><button type="button" data-full="images/amp-archi.jpg" data-cap="Architecture : acquisition, transmission LoRa, réception par la passerelle, cloud TTN"><img src="images/amp-archi.jpg" alt="Architecture du système" loading="lazy"></button><figcaption>Architecture de bout en bout</figcaption></figure>
+        <figure><button type="button" data-full="images/amp-schema.jpg" data-cap="Schéma électrique du nœud capteur"><img src="images/amp-schema.jpg" alt="Schéma électrique" loading="lazy"></button><figcaption>Schéma électrique</figcaption></figure>
+        <figure><button type="button" data-full="images/amp-routage.jpg" data-cap="Routage du PCB, face avant"><img src="images/amp-routage.jpg" alt="Routage du PCB" loading="lazy"></button><figcaption>Routage du PCB</figcaption></figure>
+        <figure><button type="button" data-full="images/amp-pcb.jpg" data-cap="Gravure du PCB"><img src="images/amp-pcb.jpg" alt="Gravure du PCB dans le bac" loading="lazy"></button><figcaption>Gravure du PCB</figcaption></figure>
+        <figure><button type="button" data-full="images/amp-gravure.jpg" data-cap="PCB après gravure"><img src="images/amp-gravure.jpg" alt="PCB gravé" loading="lazy"></button><figcaption>PCB après gravure</figcaption></figure>
+        <figure><button type="button" data-full="images/amp-percage.jpg" data-cap="Soudure des composants"><img src="images/amp-percage.jpg" alt="Soudure des composants" loading="lazy"></button><figcaption>Soudure des composants</figcaption></figure>
+        <figure><button type="button" data-full="images/amp-keithley.jpg" data-cap="Mesure de la consommation avec le SMU Keithley 2410"><img src="images/amp-keithley.jpg" alt="SMU Keithley 2410" loading="lazy"></button><figcaption>Mesure de consommation</figcaption></figure>
+        <figure><button type="button" data-full="images/amp-mesures.jpg" data-cap="Mesures de NH3 et NO2 reçues sur TTN du 11 au 16 septembre 2026"><img src="images/amp-mesures.jpg" alt="Graphique des mesures NH3 et NO2" loading="lazy"></button><figcaption>Mesures reçues sur le terrain</figcaption></figure>
+      </div></div>
+    </article>
+
+    <!-- ----- PROJET : Bras robotisé sous ROS avec suivi visuel ----- (pour ajouter un projet, copie tout ce bloc jusqu'à </article>) -->
+    <article class="proj">
+      <div class="main">
+        <div class="ref"><b>PRJ-02</b><span>Stage · juillet – août 2025</span><span>Robotique · Vision</span></div>
+        <h3>Bras robotisé sous ROS avec suivi visuel</h3>
+        <p class="where">NOVELTI, Tunisie · pôle Recherche et Développement</p>
+        <ul>
+          <li>Modèle de reconnaissance de couleurs en Python avec OpenCV : la caméra, reliée au Raspberry Pi, détecte une balle rouge et calcule son centre.</li>
+          <li>Le bras corrige sa position jusqu'à centrer la balle dans l'image, puis le gripper se ferme et saisit l'objet.</li>
+          <li>Gestion des échanges de données avec le microcontrôleur du bras (dsPIC30F4011), validée par des tests de pilotage du servomoteur Dynamixel MX-28AR.</li>
+          <li>Gripper cassé mesuré, modélisé en 3D et imprimé pour remplacer la pièce, puis recâblé vers son moteur.</li>
+        </ul>
+      </div>
+      <div class="spec">
+        <p class="label">Schéma de principe</p>
+        <div class="flow"><span class="node">Caméra (CSI)</span><span class="seg"><span class="wire"></span><span class="node core">Raspberry Pi · ROS</span></span><span class="seg"><span class="wire"></span><span class="node">dsPIC30F4011</span></span><span class="seg"><span class="wire"></span><span class="node">Servos Dynamixel</span></span></div>
+        <table>
+          <tr><th>Langages</th><td>Python, C/C++</td></tr>
+          <tr><th>Logiciel</th><td>ROS, OpenCV, MPLAB X IDE, VS Code</td></tr>
+          <tr><th>Électronique</th><td>dsPIC30F4011, servomoteur MX-28AR, schéma sous ISIS</td></tr>
+          <tr><th>Mécanique</th><td>Modélisation 3D et impression du gripper</td></tr>
+        </table>
+      </div>
+      <div class="gallery"><div class="gal">
+        <figure><button type="button" data-full="images/ros-setup.jpg" data-cap="Banc de travail : bras robotisé piloté depuis le PC"><img src="images/ros-setup.jpg" alt="Bras robotisé et ordinateur de contrôle" loading="lazy"></button><figcaption>Banc de travail et contrôle depuis le PC</figcaption></figure>
+        <figure><button type="button" data-full="images/ros-vision.jpg" data-cap="Détection de la balle rouge avec OpenCV"><img src="images/ros-vision.jpg" alt="Détection de la balle rouge par la caméra" loading="lazy"></button><figcaption>Détection de la balle rouge (OpenCV)</figcaption></figure>
+        <figure><button type="button" data-full="images/ros-balle.jpg" data-cap="Le bras devant la balle à saisir"><img src="images/ros-balle.jpg" alt="Bras robotisé et balle rouge" loading="lazy"></button><figcaption>Préhension de l'objet</figcaption></figure>
+        <figure><button type="button" data-full="images/ros-dspic.jpg" data-cap="Test du dsPIC30F4011 et du servomoteur sur plaque d'essai"><img src="images/ros-dspic.jpg" alt="Test du microcontrôleur dsPIC sur plaque d'essai" loading="lazy"></button><figcaption>Test du dsPIC et du servomoteur</figcaption></figure>
+        <figure><button type="button" data-full="images/ros-isis.jpg" data-cap="Schéma de la commande sous ISIS"><img src="images/ros-isis.jpg" alt="Schéma électronique sous ISIS" loading="lazy"></button><figcaption>Schéma sous ISIS</figcaption></figure>
+      </div></div>
+    </article>
+
+    <!-- ----- PROJET : Robot aide-soignant et bracelet intelligent ----- (pour ajouter un projet, copie tout ce bloc jusqu'à </article>) -->
+    <article class="proj">
+      <div class="main">
+        <div class="ref"><b>PRJ-03</b><span>Projet de fin d'année (PFA)</span><span>Santé · IoT</span></div>
+        <h3>Robot aide-soignant et bracelet intelligent <span class="badge">Note : 17/20</span></h3>
+        <p class="where">École Nationale d'Ingénieurs de Sfax (ENIS), Tunisie</p>
+        <ul>
+          <li>Surveillance à distance de la santé des personnes âgées : température et fréquence cardiaque mesurées par le bracelet, relié à un ESP32.</li>
+          <li>Transmission sans fil des données vers un Raspberry Pi avec MQTT (broker Mosquitto) et affichage en temps réel sur un écran.</li>
+          <li>Surveillance de seuils (température, humidité, gaz, fréquence cardiaque, SpO2) avec alertes adaptées à chaque cas.</li>
+          <li>Envoi automatique d'e-mails d'alerte depuis le Raspberry Pi en Python (SMTP).</li>
+          <li>Conception et fonctionnement appréciés par le jury. Piste d'amélioration : intégrer les circuits sur carte au lieu de câbles externes.</li>
+        </ul>
+      </div>
+      <div class="spec">
+        <p class="label">Schéma de principe</p>
+        <div class="flow"><span class="node">Capteurs</span><span class="seg"><span class="wire"></span><span class="node core">ESP32</span></span><span class="seg"><span class="wire"></span><span class="node">MQTT · Wi-Fi</span></span><span class="seg"><span class="wire"></span><span class="node">Raspberry Pi 4</span></span><span class="seg"><span class="wire"></span><span class="node">E-mail d'alerte</span></span></div>
+        <table>
+          <tr><th>Matériel</th><td>ESP32, Raspberry Pi 4, capteurs biomédicaux et d'environnement</td></tr>
+          <tr><th>Communication</th><td>Wi-Fi, MQTT (Mosquitto), SMTP</td></tr>
+          <tr><th>Logiciel</th><td>Python, C/C++, VNC Viewer</td></tr>
+          <tr><th>Résultat</th><td>Alertes automatiques par seuils</td></tr>
+        </table>
+      </div>
+      <div class="gallery"><div class="gal">
+        <figure><button type="button" data-full="images/brac-robot.jpg" data-cap="Le robot, l'affichage via VNC Viewer et le bracelet"><img src="images/brac-robot.jpg" alt="Robot aide-soignant, écran et bracelet" loading="lazy"></button><figcaption>Robot, affichage et bracelet</figcaption></figure>
+        <figure><button type="button" data-full="images/brac-mqtt.jpg" data-cap="Réception des mesures sur le Raspberry Pi"><img src="images/brac-mqtt.jpg" alt="Réception des données sur le Raspberry Pi" loading="lazy"></button><figcaption>Réception MQTT sur le Raspberry Pi</figcaption></figure>
+        <figure><button type="button" data-full="images/brac-test.jpg" data-cap="Test d'un capteur avec déclenchement du ventilateur"><img src="images/brac-test.jpg" alt="Test capteur et ventilateur" loading="lazy"></button><figcaption>Test capteur et actionneur</figcaption></figure>
+        <figure><button type="button" data-full="images/brac-alerte.jpg" data-cap="E-mail d'alerte reçu sur le téléphone"><img src="images/brac-alerte.jpg" alt="E-mail d'alerte reçu sur un téléphone" loading="lazy"></button><figcaption>E-mail d'alerte reçu</figcaption></figure>
+        <figure><button type="button" data-full="images/brac-jury.jpg" data-cap="Présentation du projet"><img src="images/brac-jury.jpg" alt="Mohamed Saidi avec le robot aide-soignant" loading="lazy"></button><figcaption>Présentation du projet</figcaption></figure>
+      </div></div>
+    </article>
+
+    <!-- ----- PROJET : Télécommande modulaire multicanal pour robot mobile ----- (pour ajouter un projet, copie tout ce bloc jusqu'à </article>) -->
+    <article class="proj">
+      <div class="main">
+        <div class="ref"><b>PRJ-04</b><span>Projet personnel</span><span>Radio · Robot mobile</span></div>
+        <h3>Télécommande modulaire multicanal pour robot mobile</h3>
+        <p class="where">Conception complète d'un émetteur et d'un récepteur embarqué</p>
+        <ul>
+          <li>Émetteur sur Arduino Nano : lecture des joysticks, potentiomètres et boutons, puis envoi par module radio nRF24L01 relié en SPI.</li>
+          <li>Récepteur sur Arduino Nano avec nRF24L01 : décodage des données et commande de 7 sorties (CH1 à CH7) vers les actionneurs.</li>
+          <li>Choix des composants, montage et soudure des cartes, programmation sous Arduino IDE.</li>
+          <li>Validé sur banc : LED allumée, mouvement du servomoteur, ventilateur activé.</li>
+        </ul>
+      </div>
+      <div class="spec">
+        <p class="label">Schéma de principe</p>
+        <div class="flow"><span class="node">Joysticks · boutons</span><span class="seg"><span class="wire"></span><span class="node core">Arduino Nano</span></span><span class="seg"><span class="wire"></span><span class="node">nRF24L01</span></span><span class="seg"><span class="wire"></span><span class="node">Récepteur Nano</span></span><span class="seg"><span class="wire"></span><span class="node">Servos · moteurs</span></span></div>
+        <table>
+          <tr><th>Matériel</th><td>2 × Arduino Nano, 2 × nRF24L01</td></tr>
+          <tr><th>Interfaces</th><td>SPI, radio 2,4 GHz, 7 canaux</td></tr>
+          <tr><th>Logiciel</th><td>C/C++, Arduino IDE</td></tr>
+          <tr><th>Réalisation</th><td>Montage et soudure des cartes</td></tr>
+        </table>
+      </div>
+      <div class="gallery"><div class="gal">
+        <figure><button type="button" data-full="images/tele-systeme.jpg" data-cap="Système complet : émetteur, récepteur et actionneurs"><img src="images/tele-systeme.jpg" alt="Système de télécommande complet" loading="lazy"></button><figcaption>Système complet</figcaption></figure>
+        <figure><button type="button" data-full="images/tele-emetteur.jpg" data-cap="Carte de l'émetteur"><img src="images/tele-emetteur.jpg" alt="Carte de l'émetteur" loading="lazy"></button><figcaption>Carte de l'émetteur</figcaption></figure>
+        <figure><button type="button" data-full="images/tele-soudure.jpg" data-cap="Câblage et soudure au dos de la carte"><img src="images/tele-soudure.jpg" alt="Soudures au dos de la carte" loading="lazy"></button><figcaption>Câblage et soudure</figcaption></figure>
+        <figure><button type="button" data-full="images/tele-recepteur.jpg" data-cap="Récepteur : Arduino Nano et nRF24L01"><img src="images/tele-recepteur.jpg" alt="Récepteur avec antenne" loading="lazy"></button><figcaption>Récepteur embarqué</figcaption></figure>
+        <figure><button type="button" data-full="images/tele-test.jpg" data-cap="Test : servomoteurs, LED et ventilateur commandés à distance"><img src="images/tele-test.jpg" alt="Test des actionneurs" loading="lazy"></button><figcaption>Test des actionneurs</figcaption></figure>
+      </div></div>
+    </article>
+
+    <!-- ----- PROJET : Commande d'un moteur triphasé sur FPGA ----- (pour ajouter un projet, copie tout ce bloc jusqu'à </article>) -->
+    <article class="proj">
+      <div class="main">
+        <div class="ref"><b>PRJ-05</b><span>Projet Systèmes Embarqués</span><span>FPGA · Commande moteur</span></div>
+        <h3>Commande d'un moteur triphasé sur FPGA</h3>
+        <p class="where">École Nationale d'Ingénieurs de Sfax (ENIS), Tunisie</p>
+        <ul>
+          <li>Conception d'un système de commande d'un moteur triphasé sur FPGA.</li>
+          <li>Implémentation de la génération PWM et de la gestion des signaux de commande.</li>
+          <li>Développement d'algorithmes de contrôle en temps réel en logique numérique.</li>
+        </ul>
+        <p class="note">Les deux figures ci-dessous sont des schémas de principe réalisés pour ce portfolio, pas des captures du projet.</p>
+      </div>
+      <div class="spec">
+        <p class="label">Schéma de principe</p>
+        <div class="flow"><span class="node">Consigne</span><span class="seg"><span class="wire"></span><span class="node core">FPGA · VHDL</span></span><span class="seg"><span class="wire"></span><span class="node">PWM ×3</span></span><span class="seg"><span class="wire"></span><span class="node">Moteur triphasé</span></span></div>
+        <table>
+          <tr><th>Cible</th><td>FPGA</td></tr>
+          <tr><th>Langage</th><td>VHDL</td></tr>
+          <tr><th>Outils</th><td>Vivado, MATLAB/Simulink</td></tr>
+          <tr><th>Fonctions</th><td>Génération PWM, gestion des signaux, contrôle temps réel</td></tr>
+        </table>
+      </div>
+      <div class="gallery"><div class="gal wide">
+        <figure><button type="button" data-full="images/fpga-archi.svg" data-cap="Architecture de la commande sur FPGA (schéma de principe)"><img src="images/fpga-archi.svg" alt="Schéma de l'architecture de commande sur FPGA" loading="lazy"></button><figcaption>Architecture de la commande (schéma de principe)</figcaption></figure>
+        <figure><button type="button" data-full="images/fpga-pwm.png" data-cap="Principe de la PWM sinus-triangle triphasée, calculé en Python"><img src="images/fpga-pwm.png" alt="Signaux PWM des trois phases" loading="lazy"></button><figcaption>Principe de la PWM triphasée (illustration calculée)</figcaption></figure>
+      </div></div>
+    </article>
+
+  </div>
+</section>
+
+
+<!-- ================= SECTION 03 : WORKSHOPS ================= -->
+<section id="workshops">
+  <div class="sec-head"><span class="no">03</span><h2>Workshops</h2></div>
+  <div class="ws">
+    <div class="wcard">
+      <img src="images/ws-pcb.jpg" alt="Routage du PCB du Clap Switch" loading="lazy" data-full="images/ws-pcb.jpg" data-cap="Routage du PCB du Clap Switch">
+      <div class="in">
+        <div class="ref"><b>WS-01</b><span>Conception PCB</span></div>
+        <h3>PCB d'un Clap Switch</h3>
+        <p>Carte qui allume ou éteint un appareil d'un claquement de mains. Quatre étapes : schéma, simulation de la détection, routage compact avec vérification des règles (DRC), puis test du fonctionnement.</p>
+      </div>
+    </div>
+    <div class="wcard">
+      <img src="images/ws-lora.jpg" alt="Deux cartes STM32 avec modules LoRa" loading="lazy" data-full="images/ws-lora.jpg" data-cap="Deux cartes STM32 équipées de modules LoRa">
+      <div class="in">
+        <div class="ref"><b>WS-02</b><span>Communication sans fil</span></div>
+        <h3>Communication entre deux STM32 via LoRa</h3>
+        <p>Deux STM32, chacune reliée à un module LoRa configuré en fréquence et en modulation : l'une émet des paquets de données, l'autre les reçoit et les traite, sur de longues distances.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= SECTION 04 : COMPÉTENCES (une compétence = <span class="chip">…</span>) ================= -->
+<section id="competences">
+  <div class="sec-head"><span class="no">04</span><h2>Compétences</h2></div>
+  <div class="skills">
+    <div class="skill"><h3>Microcontrôleurs &amp; cibles</h3><div class="chips"><span class="chip">STM32 (F4)</span><span class="chip">ESP32</span><span class="chip">dsPIC30F</span><span class="chip">Arduino</span><span class="chip">Raspberry Pi</span><span class="chip">FPGA</span></div></div>
+    <div class="skill"><h3>Langages</h3><div class="chips"><span class="chip">C</span><span class="chip">C++</span><span class="chip">Python</span><span class="chip">VHDL</span><span class="chip">Verilog</span><span class="chip">MATLAB/Simulink</span><span class="chip">Java</span></div></div>
+    <div class="skill"><h3>Protocoles &amp; interfaces</h3><div class="chips"><span class="chip">I2C</span><span class="chip">SPI</span><span class="chip">UART</span><span class="chip">CAN</span><span class="chip">RS422</span><span class="chip">LoRa / LoRaWAN</span><span class="chip">The Things Network</span><span class="chip">nRF24L01</span><span class="chip">MQTT</span><span class="chip">Wi-Fi</span><span class="chip">PWM</span><span class="chip">ADC</span></div></div>
+    <div class="skill"><h3>Conception électronique</h3><div class="chips"><span class="chip">KiCad</span><span class="chip">Eagle</span><span class="chip">Altium Designer</span><span class="chip">ISIS</span><span class="chip">LTspice</span><span class="chip">Multisim</span><span class="chip">PSpice</span><span class="chip">PSIM</span><span class="chip">Fabrication de PCB</span><span class="chip">Soudure</span><span class="chip">Debug hardware</span><span class="chip">SMU Keithley</span></div></div>
+    <div class="skill"><h3>Systèmes &amp; outils</h3><div class="chips"><span class="chip">FreeRTOS</span><span class="chip">Linux</span><span class="chip">ROS</span><span class="chip">OpenCV</span><span class="chip">STM32CubeIDE</span><span class="chip">PlatformIO</span><span class="chip">MPLAB X</span><span class="chip">Arduino IDE</span><span class="chip">Vivado</span><span class="chip">Quartus Prime</span><span class="chip">Git</span></div></div>
+    <div class="skill"><h3>Mécanique</h3><div class="chips"><span class="chip">SolidWorks</span><span class="chip">AutoCAD</span><span class="chip">Impression 3D</span></div></div>
+  </div>
+</section>
+
+
+<!-- ================= SECTION 05 : FORMATION ================= -->
+<section id="parcours">
+  <div class="sec-head"><span class="no">05</span><h2>Formation</h2></div>
+  <div class="timeline">
+    <div class="tl"><div class="when">2026 – 2027</div><div><h3>Master 2 Électronique, Énergie Électrique, Automatique (EEA)</h3><p>Université Gustave Eiffel, Institut Gaspard Monge, Paris · double diplôme</p></div></div>
+    <div class="tl"><div class="when">2023 – 2026</div><div><h3>Diplôme d'ingénieur en génie électrique, Électronique et Instrumentation Embarquée</h3><p>École Nationale d'Ingénieurs de Sfax (ENIS), Tunisie · école accréditée par la CTI</p></div></div>
+    <div class="tl"><div class="when">2021 – 2023</div><div><h3>Cycle préparatoire aux études d'ingénieur, Physique-Chimie</h3><p>IPEI de Gabès, Tunisie</p></div></div>
+    <div class="tl"><div class="when">2021</div><div><h3>Baccalauréat Sciences Mathématiques</h3><p>Tunisie</p></div></div>
+  </div>
+</section>
+
+
+<!-- ================= SECTION 06 : ATTESTATIONS ET CERTIFICATS ================= -->
+<section id="certifications">
+  <div class="sec-head"><span class="no">06</span><h2>Attestations &amp; certificats</h2></div>
+  <div class="certs">
+    <div class="cert"><div class="when">2025</div><div><b>Attestation de stage, NOVELTI</b><br><span style="color:var(--muted)">Stage au pôle Recherche et Développement, du 01/07/2025 au 31/08/2025</span></div></div>
+    <div class="cert"><div class="when">2025</div><div><b>Certificate of Achievement : ROS 2 New Features</b><br><span style="color:var(--muted)">Mind Cluster</span></div></div>
+  </div>
+</section>
+
+
+<!-- ================= SECTION 07 : LANGUES ================= -->
+<section id="langues">
+  <div class="sec-head"><span class="no">07</span><h2>Langues</h2></div>
+  <div class="langs">
+    <div><b>Français</b><span>Courant</span></div>
+    <div><b>Anglais</b><span>Professionnel</span></div>
+    <div><b>Arabe</b><span>Langue maternelle</span></div>
+  </div>
+</section>
+
+</main>
+
+
+<!-- ================= CONTACT (e-mail, téléphone, LinkedIn) ================= -->
+<section class="contact" id="contact"><div class="wrap">
+  <h2>Travaillons ensemble</h2>
+  <p>Je recherche un stage de fin d'études de 6 mois en systèmes embarqués ou en électronique, à partir de mars 2027, en France ou en Suisse.</p>
+  <div class="cgrid">
+    <div><small>E-mail</small><a href="mailto:mohamed.saidi@edu.esiee.fr">mohamed.saidi@edu.esiee.fr</a></div>
+    <div><small>Téléphone</small><span>+33 7 58 40 17 57</span></div>
+    <div><small>LinkedIn</small><a href="https://www.linkedin.com/in/mohamed-saidi" target="_blank" rel="noopener">linkedin.com/in/mohamed-saidi</a></div>
+    <div><small>Localisation</small><span>Champs-sur-Marne, Île-de-France</span></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">Mohamed Saidi · Portfolio systèmes embarqués · Cliquez sur une photo pour l'agrandir</div></footer>
+
+<dialog class="lb" id="lb" aria-label="Photo agrandie">
+  <button type="button" id="lbclose">Fermer ✕</button>
+  <img id="lbimg" alt="">
+  <p id="lbcap"></p>
+</dialog>
+
+<script>
+(function () {
+  var lb = document.getElementById('lb'), img = document.getElementById('lbimg'), cap = document.getElementById('lbcap');
+  function open(src, text) {
+    img.src = src; img.alt = text || ''; cap.textContent = text || '';
+    try { lb.showModal(); } catch (e) { lb.setAttribute('open', ''); }
+  }
+  document.querySelectorAll('[data-full]').forEach(function (el) {
+    el.addEventListener('click', function () { open(el.getAttribute('data-full'), el.getAttribute('data-cap')); });
+  });
+  document.getElementById('lbclose').addEventListener('click', function () { lb.close ? lb.close() : lb.removeAttribute('open'); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) { lb.close(); } });
+})();
+</script>
+</body>
+</html>

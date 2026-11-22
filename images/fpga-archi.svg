@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" font-family="DejaVu Sans, Arial, sans-serif">
+  <rect width="960" height="360" fill="#ffffff"/>
+  <text x="24" y="38" font-size="18" font-weight="bold" fill="#15191c">Architecture de la commande sur FPGA (schéma de principe)</text>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#15191c"/></marker>
+  </defs>
+  <!-- consigne -->
+  <rect x="24" y="150" width="120" height="64" fill="#f4f6f6" stroke="#15191c" stroke-width="1.5"/>
+  <text x="84" y="178" font-size="14" text-anchor="middle" fill="#15191c">Consigne</text>
+  <text x="84" y="198" font-size="12" text-anchor="middle" fill="#5a6267">vitesse / sens</text>
+  <line x1="144" y1="182" x2="190" y2="182" stroke="#15191c" stroke-width="1.5" marker-end="url(#ar)"/>
+  <!-- FPGA -->
+  <rect x="194" y="70" width="430" height="230" fill="#fbeff0" stroke="#b3121f" stroke-width="2"/>
+  <text x="210" y="96" font-size="15" font-weight="bold" fill="#b3121f">FPGA · logique numérique en VHDL</text>
+  <rect x="214" y="122" width="120" height="120" fill="#ffffff" stroke="#15191c" stroke-width="1.5"/>
+  <text x="274" y="168" font-size="13" text-anchor="middle" fill="#15191c">Contrôle</text>
+  <text x="274" y="186" font-size="13" text-anchor="middle" fill="#15191c">temps réel</text>
+  <text x="274" y="206" font-size="11" text-anchor="middle" fill="#5a6267">algorithme</text>
+  <line x1="334" y1="182" x2="358" y2="182" stroke="#15191c" stroke-width="1.5" marker-end="url(#ar)"/>
+  <rect x="362" y="122" width="120" height="120" fill="#ffffff" stroke="#15191c" stroke-width="1.5"/>
+  <text x="422" y="168" font-size="13" text-anchor="middle" fill="#15191c">Génération</text>
+  <text x="422" y="186" font-size="13" text-anchor="middle" fill="#15191c">PWM × 3</text>
+  <text x="422" y="206" font-size="11" text-anchor="middle" fill="#5a6267">phases A, B, C</text>
+  <line x1="482" y1="182" x2="506" y2="182" stroke="#15191c" stroke-width="1.5" marker-end="url(#ar)"/>
+  <rect x="510" y="122" width="100" height="120" fill="#ffffff" stroke="#15191c" stroke-width="1.5"/>
+  <text x="560" y="168" font-size="13" text-anchor="middle" fill="#15191c">Gestion</text>
+  <text x="560" y="186" font-size="13" text-anchor="middle" fill="#15191c">des signaux</text>
+  <text x="560" y="206" font-size="11" text-anchor="middle" fill="#5a6267">de commande</text>
+  <text x="210" y="280" font-size="11.5" fill="#5a6267">Développé sous Vivado · algorithmes modélisés sous MATLAB/Simulink</text>
+  <!-- outputs -->
+  <line x1="624" y1="160" x2="680" y2="160" stroke="#b3121f" stroke-width="1.8" marker-end="url(#ar)"/>
+  <line x1="624" y1="182" x2="680" y2="182" stroke="#1f5fa8" stroke-width="1.8" marker-end="url(#ar)"/>
+  <line x1="624" y1="204" x2="680" y2="204" stroke="#2e7d4f" stroke-width="1.8" marker-end="url(#ar)"/>
+  <text x="652" y="150" font-size="11" text-anchor="middle" fill="#5a6267">A B C</text>
+  <rect x="684" y="138" width="112" height="88" fill="#f4f6f6" stroke="#15191c" stroke-width="1.5"/>
+  <text x="740" y="176" font-size="13" text-anchor="middle" fill="#15191c">Étage de</text>
+  <text x="740" y="194" font-size="13" text-anchor="middle" fill="#15191c">puissance</text>
+  <line x1="796" y1="182" x2="836" y2="182" stroke="#15191c" stroke-width="1.5" marker-end="url(#ar)"/>
+  <circle cx="886" cy="182" r="44" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+  <text x="886" y="190" font-size="22" font-weight="bold" text-anchor="middle" fill="#15191c">M</text>
+  <text x="886" y="250" font-size="12" text-anchor="middle" fill="#15191c">Moteur triphasé</text>
+  <text x="24" y="340" font-size="11" fill="#8a9297">Schéma de principe illustratif, réalisé pour ce portfolio.</text>
+</svg>
